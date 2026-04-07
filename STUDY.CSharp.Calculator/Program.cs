@@ -57,8 +57,8 @@ class Program
             double cleanNum1 = 0;
             while (!double.TryParse(numInput1, out cleanNum1))
             {
-                Console.WriteLine("This is not valid input. Please enter a numeric value: ");
-                Console.ReadLine();
+                Console.Write("This is not valid input. Please enter a numeric value: ");
+                numInput1 = Console.ReadLine();
             }
 
             // Ask the user to type the second number.
