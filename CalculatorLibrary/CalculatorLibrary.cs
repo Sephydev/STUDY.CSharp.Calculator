@@ -5,9 +5,12 @@ namespace CalculatorLibrary
     public class Calculator
     {
         JsonWriter writer;
+        private int count;
 
         public Calculator()
         {
+            count = 0;
+
             StreamWriter logFile = File.CreateText("calculatorlog.json");
             logFile.AutoFlush = true;
             writer = new JsonTextWriter(logFile);
@@ -56,6 +59,7 @@ namespace CalculatorLibrary
             writer.WritePropertyName("Result");
             writer.WriteValue(result);
             writer.WriteEndObject();
+            IncrementCount();
 
             return result;
         }
@@ -65,6 +69,19 @@ namespace CalculatorLibrary
             writer.WriteEndArray();
             writer.WriteEndObject();
             writer.Close();
+        }
+
+        private void IncrementCount()
+        {
+            count++;
+        }
+
+        public int Count
+        {
+            get
+            {
+                return count;
+            }
         }
     }
 }
