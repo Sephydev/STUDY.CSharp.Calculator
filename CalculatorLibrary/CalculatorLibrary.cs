@@ -31,14 +31,14 @@ namespace CalculatorLibrary
             writer.WriteStartObject();
             writer.WritePropertyName("Operand1");
             writer.WriteValue(num1);
-            if (!Regex.IsMatch(op, "^(sr|exp|sin|cos)$"))
+            if (!Regex.IsMatch(op, "^(sr|exp|sin|cos|tan)$"))
             {
                 writer.WritePropertyName("Operand2");
                 writer.WriteValue(num2);
             }
             writer.WritePropertyName("Operation");
 
-            if (Regex.IsMatch(op, "^(sin|cos)"))
+            if (Regex.IsMatch(op, "^(sin|cos|tan)"))
                 radianNum1 = num1 * (Math.PI / 180);
 
             // Use a switch statement to do the math.
@@ -88,6 +88,10 @@ namespace CalculatorLibrary
                     result = Math.Cos(radianNum1);
                     writer.WriteValue("Cosinus");
                     break;
+                case "tan":
+                    result = Math.Tan(radianNum1);
+                    writer.WriteValue("Tangente");
+                    break;
                 // Return text for an incorrect option entry.
                 default:
                     break;
@@ -103,20 +107,21 @@ namespace CalculatorLibrary
                 case "s":
                 case "m":
                 case "d":
-                    previousCalculation.Add($"{num1} {mathOperator} {num2} = {result}");
+                    previousCalculation.Add($"{num1} {mathOperator} {num2} = " + String.Format("{0:0.##}", result));
                     break;
                 case "sr":
-                    previousCalculation.Add($"sqrt({num1}) = {result}");
+                    previousCalculation.Add($"sqrt({num1}) = " + String.Format("{0:0.##}", result));
                     break;
                 case "pow":
-                    previousCalculation.Add($"{num1}^{num2} = {result}");
+                    previousCalculation.Add($"{num1}^{num2} = " + String.Format("{0:0.##}", result));
                     break;
                 case "exp":
-                    previousCalculation.Add($"10^{num1} = {result}");
+                    previousCalculation.Add($"10^{num1} = " + String.Format("{0:0.##}", result));
                     break;
                 case "sin":
                 case "cos":
-                    previousCalculation.Add($"{op}({num1}) = {result}");
+                case "tan":
+                    previousCalculation.Add($"{op}({num1}) = " + String.Format("{0:0.##}", result));
                     break;
             }
 

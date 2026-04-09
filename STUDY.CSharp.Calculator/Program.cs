@@ -107,12 +107,13 @@ namespace CalculatorProgram
                 Console.WriteLine("\texp - 10x (Only takes into account the first number you gave)");
                 Console.WriteLine("\tsin - Sinus (Only takes into account the first number you gave)");
                 Console.WriteLine("\tcos - Cosinus (Only takes into account the first number you gave)");
+                Console.WriteLine("\ttan - Tangente (Only takes into account the first number you gave)");
                 Console.WriteLine("Your option? ");
 
                 string? op = Console.ReadLine();
 
                 // Validate input is not null, and matches the pattern
-                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|sr|pow|exp|sin|cos)$"))
+                if (op == null || !Regex.IsMatch(op, "^(a|s|m|d|sr|pow|exp|sin|cos|tan)$"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }
