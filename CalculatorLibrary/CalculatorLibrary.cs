@@ -68,6 +68,10 @@ namespace CalculatorLibrary
                     result = Math.Sqrt(num1);
                     writer.WriteValue("Square Root");
                     break;
+                case "pow":
+                    result = Math.Pow(num1, num2);
+                    writer.WriteValue("Taking the Power");
+                    break;
                 // Return text for an incorrect option entry.
                 default:
                     break;
@@ -77,10 +81,21 @@ namespace CalculatorLibrary
             writer.WriteEndObject();
             IncrementCount();
 
-            if (!Regex.IsMatch(op, "[sr]"))
-                previousCalculation.Add($"{num1} {mathOperator} {num2} = {result}");
-            else
-                previousCalculation.Add($"sqrt({num1}) = {result}");
+            switch (op)
+            {
+                case "a":
+                case "s":
+                case "m":
+                case "d":
+                    previousCalculation.Add($"{num1} {mathOperator} {num2} = {result}");
+                    break;
+                case "sr":
+                    previousCalculation.Add($"sqrt({num1}) = {result}");
+                    break;
+                case "pow":
+                    previousCalculation.Add($"{num1} pow({num2}) = {result}");
+                    break;
+            }
 
             return result;
         }

@@ -103,12 +103,13 @@ namespace CalculatorProgram
                 Console.WriteLine("\tm - Multiply");
                 Console.WriteLine("\td - Divide");
                 Console.WriteLine("\tsr - Square Root (Only takes into account the first number you gave)");
+                Console.WriteLine("\tpow - Taking the power");
                 Console.WriteLine("Your option? ");
 
                 string? op = Console.ReadLine();
 
                 // Validate input is not null, and matches the pattern
-                if (op == null || !Regex.IsMatch(op, "[a|s|m|d|sr]"))
+                if (op == null || !Regex.IsMatch(op, "[a|s|m|d|sr|pow]"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }
