@@ -105,9 +105,9 @@ namespace CalculatorProgram
                 Console.WriteLine("\tsr - Square Root (Only takes into account the first number you gave)");
                 Console.WriteLine("\tpow - Taking the power");
                 Console.WriteLine("\texp - 10x (Only takes into account the first number you gave)");
-                Console.WriteLine("\tsin - Sinus (Only takes into account the first number you gave)");
-                Console.WriteLine("\tcos - Cosinus (Only takes into account the first number you gave)");
-                Console.WriteLine("\ttan - Tangente (Only takes into account the first number you gave)");
+                Console.WriteLine("\tsin - Sine (Only takes into account the first number you gave)");
+                Console.WriteLine("\tcos - Cosine (Only takes into account the first number you gave)");
+                Console.WriteLine("\ttan - Tangent (Only takes into account the first number you gave)");
                 Console.WriteLine("Your option? ");
 
                 string? op = Console.ReadLine();

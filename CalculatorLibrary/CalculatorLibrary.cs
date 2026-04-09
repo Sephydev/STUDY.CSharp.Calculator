@@ -82,15 +82,15 @@ namespace CalculatorLibrary
                     break;
                 case "sin":
                     result = Math.Sin(radianNum1);
-                    writer.WriteValue("Sinus");
+                    writer.WriteValue("Sine");
                     break;
                 case "cos":
                     result = Math.Cos(radianNum1);
-                    writer.WriteValue("Cosinus");
+                    writer.WriteValue("Cosine");
                     break;
                 case "tan":
                     result = Math.Tan(radianNum1);
-                    writer.WriteValue("Tangente");
+                    writer.WriteValue("Tangent");
                     break;
                 // Return text for an incorrect option entry.
                 default:
