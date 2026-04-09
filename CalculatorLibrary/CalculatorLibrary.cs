@@ -30,7 +30,7 @@ namespace CalculatorLibrary
             writer.WriteStartObject();
             writer.WritePropertyName("Operand1");
             writer.WriteValue(num1);
-            if (!Regex.IsMatch(op, "[sr]"))
+            if (!Regex.IsMatch(op, "^(sr|exp)$"))
             {
                 writer.WritePropertyName("Operand2");
                 writer.WriteValue(num2);
@@ -72,6 +72,10 @@ namespace CalculatorLibrary
                     result = Math.Pow(num1, num2);
                     writer.WriteValue("Taking the Power");
                     break;
+                case "exp":
+                    result = Math.Pow(10, num1);
+                    writer.WriteValue("10x");
+                    break;
                 // Return text for an incorrect option entry.
                 default:
                     break;
@@ -93,7 +97,10 @@ namespace CalculatorLibrary
                     previousCalculation.Add($"sqrt({num1}) = {result}");
                     break;
                 case "pow":
-                    previousCalculation.Add($"{num1} pow({num2}) = {result}");
+                    previousCalculation.Add($"{num1}^{num2} = {result}");
+                    break;
+                case "exp":
+                    previousCalculation.Add($"10^{num1} = {result}");
                     break;
             }
 
