@@ -22,11 +22,13 @@ namespace CalculatorProgram
                 string? numInput2 = "";
                 string? userInput = "";
                 double result = 0;
+                string lastOperation = "";
 
-                bool previousCalculationHasData = calculator.PreviousCalculation.Count == 0;
+                bool previousCalculationIsEmpty = calculator.PreviousCalculation.Count == 0;
+
 
                 Console.WriteLine("Previous calculation: ");
-                if (previousCalculationHasData)
+                if (previousCalculationIsEmpty)
                 {
                     Console.WriteLine("N/A");
                 }
@@ -42,19 +44,45 @@ namespace CalculatorProgram
                     if (userInput != null && userInput.Equals("y"))
                     {
                         calculator.DeleteHistory();
+                        previousCalculationIsEmpty = calculator.PreviousCalculation.Count == 0;
                     }
                 }
 
-                // Ask the user to type the first number.
-
-                Console.Write("Type a number, and then press Enter: ");
-                numInput1 = Console.ReadLine();
-
                 double cleanNum1 = 0;
-                while (!double.TryParse(numInput1, out cleanNum1))
+
+                // Ask the user to type the first number.
+                if (previousCalculationIsEmpty)
                 {
-                    Console.Write("This is not valid input. Please enter a numeric value: ");
+                    Console.Write("Type a number, and then press Enter: ");
                     numInput1 = Console.ReadLine();
+
+                    while (!double.TryParse(numInput1, out cleanNum1))
+                    {
+                        Console.Write("This is not valid input. Please enter a numeric value: ");
+                        numInput1 = Console.ReadLine();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Do you want to use the last result? (Press y to use the last result, or Enter to continue)");
+                    userInput = Console.ReadLine();
+
+                    if (userInput != null && userInput.Equals("y"))
+                    {
+                        lastOperation = calculator.PreviousCalculation[calculator.PreviousCalculation.Count - 1];
+                        Double.TryParse(lastOperation.Substring(lastOperation.LastIndexOf("=") + 2), out cleanNum1);
+                    }
+                    else
+                    {
+                        Console.Write("Type a number, and then press Enter: ");
+                        numInput1 = Console.ReadLine();
+
+                        while (!double.TryParse(numInput1, out cleanNum1))
+                        {
+                            Console.Write("This is not valid input. Please enter a numeric value: ");
+                            numInput1 = Console.ReadLine();
+                        }
+                    }
                 }
 
                 // Ask the user to type the second number.
