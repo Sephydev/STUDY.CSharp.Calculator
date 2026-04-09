@@ -26,16 +26,20 @@ namespace CalculatorLibrary
         {
             double result = double.NaN; // Default value is "not-a-number" if an operation, such as division, could result in an error.
             string mathOperator = "";
+            double radianNum1 = 0;
             
             writer.WriteStartObject();
             writer.WritePropertyName("Operand1");
             writer.WriteValue(num1);
-            if (!Regex.IsMatch(op, "^(sr|exp)$"))
+            if (!Regex.IsMatch(op, "^(sr|exp|sin|cos)$"))
             {
                 writer.WritePropertyName("Operand2");
                 writer.WriteValue(num2);
             }
             writer.WritePropertyName("Operation");
+
+            if (Regex.IsMatch(op, "^(sin|cos)"))
+                radianNum1 = num1 * (Math.PI / 180);
 
             // Use a switch statement to do the math.
             switch (op)
@@ -76,6 +80,14 @@ namespace CalculatorLibrary
                     result = Math.Pow(10, num1);
                     writer.WriteValue("10x");
                     break;
+                case "sin":
+                    result = Math.Sin(radianNum1);
+                    writer.WriteValue("Sinus");
+                    break;
+                case "cos":
+                    result = Math.Cos(radianNum1);
+                    writer.WriteValue("Cosinus");
+                    break;
                 // Return text for an incorrect option entry.
                 default:
                     break;
@@ -101,6 +113,10 @@ namespace CalculatorLibrary
                     break;
                 case "exp":
                     previousCalculation.Add($"10^{num1} = {result}");
+                    break;
+                case "sin":
+                case "cos":
+                    previousCalculation.Add($"{op}({num1}) = {result}");
                     break;
             }
 
