@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace CalculatorLibrary
 {
@@ -29,8 +30,11 @@ namespace CalculatorLibrary
             writer.WriteStartObject();
             writer.WritePropertyName("Operand1");
             writer.WriteValue(num1);
-            writer.WritePropertyName("Operand2");
-            writer.WriteValue(num2);
+            if (!Regex.IsMatch(op, "[sr]"))
+            {
+                writer.WritePropertyName("Operand2");
+                writer.WriteValue(num2);
+            }
             writer.WritePropertyName("Operation");
 
             // Use a switch statement to do the math.
@@ -60,6 +64,10 @@ namespace CalculatorLibrary
                     mathOperator = "/";
                     writer.WriteValue("Divide");
                     break;
+                case "sr":
+                    result = Math.Sqrt(num1);
+                    writer.WriteValue("Square Root");
+                    break;
                 // Return text for an incorrect option entry.
                 default:
                     break;
@@ -69,7 +77,10 @@ namespace CalculatorLibrary
             writer.WriteEndObject();
             IncrementCount();
 
-            previousCalculation.Add($"{num1} {mathOperator} {num2} = {result}");
+            if (!Regex.IsMatch(op, "[sr]"))
+                previousCalculation.Add($"{num1} {mathOperator} {num2} = {result}");
+            else
+                previousCalculation.Add($"sqrt({num1}) = {result}");
 
             return result;
         }
