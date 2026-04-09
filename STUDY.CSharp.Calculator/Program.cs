@@ -22,6 +22,19 @@ namespace CalculatorProgram
                 string? numInput2 = "";
                 double result = 0;
 
+                Console.WriteLine("Previous calculation: ");
+                if (calculator.PreviousCalculation.Count == 0)
+                {
+                    Console.WriteLine("N/A");
+                }
+                else
+                {
+                    foreach(string calculation in calculator.PreviousCalculation)
+                    {
+                        Console.WriteLine(calculation);
+                    }
+                }
+
                 // Ask the user to type the first number.
                 Console.Write("Type a number, and then press Enter: ");
                 numInput1 = Console.ReadLine();

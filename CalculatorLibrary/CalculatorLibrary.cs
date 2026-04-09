@@ -6,10 +6,12 @@ namespace CalculatorLibrary
     {
         JsonWriter writer;
         private int count;
+        private List<string> previousCalculation;
 
         public Calculator()
         {
             count = 0;
+            previousCalculation = new List<string>();
 
             StreamWriter logFile = File.CreateText("calculatorlog.json");
             logFile.AutoFlush = true;
@@ -22,6 +24,8 @@ namespace CalculatorLibrary
         public double DoOperation(double num1, double num2, string op)
         {
             double result = double.NaN; // Default value is "not-a-number" if an operation, such as division, could result in an error.
+            string mathOperator = "";
+            
             writer.WriteStartObject();
             writer.WritePropertyName("Operand1");
             writer.WriteValue(num1);
@@ -34,14 +38,17 @@ namespace CalculatorLibrary
             {
                 case "a":
                     result = num1 + num2;
+                    mathOperator = "+";
                     writer.WriteValue("Add");
                     break;
                 case "s":
                     result = num1 - num2;
+                    mathOperator = "-";
                     writer.WriteValue("Subtract");
                     break;
                 case "m":
                     result = num1 * num2;
+                    mathOperator = "*";
                     writer.WriteValue("Multiply");
                     break;
                 case "d":
@@ -50,6 +57,7 @@ namespace CalculatorLibrary
                     {
                         result = num1 / num2;
                     }
+                    mathOperator = "/";
                     writer.WriteValue("Divide");
                     break;
                 // Return text for an incorrect option entry.
@@ -60,6 +68,8 @@ namespace CalculatorLibrary
             writer.WriteValue(result);
             writer.WriteEndObject();
             IncrementCount();
+
+            previousCalculation.Add($"{num1} {mathOperator} {num2} = {result}");
 
             return result;
         }
@@ -74,6 +84,14 @@ namespace CalculatorLibrary
         private void IncrementCount()
         {
             count++;
+        }
+
+        public List<string> PreviousCalculation
+        {
+            get
+            {
+                return previousCalculation;
+            }
         }
 
         public int Count
