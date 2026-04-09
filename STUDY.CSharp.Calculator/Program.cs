@@ -20,10 +20,13 @@ namespace CalculatorProgram
                 // Use Nullable types (with ?) to match type of System.Console.ReadLine
                 string? numInput1 = "";
                 string? numInput2 = "";
+                string? userInput = "";
                 double result = 0;
 
+                bool previousCalculationHasData = calculator.PreviousCalculation.Count == 0;
+
                 Console.WriteLine("Previous calculation: ");
-                if (calculator.PreviousCalculation.Count == 0)
+                if (previousCalculationHasData)
                 {
                     Console.WriteLine("N/A");
                 }
@@ -33,12 +36,16 @@ namespace CalculatorProgram
                     {
                         Console.WriteLine(calculation);
                     }
+                    Console.WriteLine("Do you want to delete the previous calculations? (Press y to delete the list, or Enter to continue)");
+                    userInput = Console.ReadLine();
+
+                    if (userInput != null && userInput.Equals("y"))
+                    {
+                        calculator.DeleteHistory();
+                    }
                 }
 
                 // Ask the user to type the first number.
-                Console.Write("Type a number, and then press Enter: ");
-                numInput1 = Console.ReadLine();
-
                 double cleanNum1 = 0;
                 while (!double.TryParse(numInput1, out cleanNum1))
                 {

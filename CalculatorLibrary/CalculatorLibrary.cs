@@ -86,6 +86,11 @@ namespace CalculatorLibrary
             count++;
         }
 
+        public void DeleteHistory()
+        {
+            previousCalculation.Clear();
+        }
+
         public List<string> PreviousCalculation
         {
             get
