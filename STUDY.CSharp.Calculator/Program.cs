@@ -46,6 +46,10 @@ namespace CalculatorProgram
                 }
 
                 // Ask the user to type the first number.
+
+                Console.Write("Type a number, and then press Enter: ");
+                numInput1 = Console.ReadLine();
+
                 double cleanNum1 = 0;
                 while (!double.TryParse(numInput1, out cleanNum1))
                 {
